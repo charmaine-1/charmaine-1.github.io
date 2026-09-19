@@ -89,3 +89,26 @@ def solve_parabola_numerical(a0=-10.0, b0=-10.0, c0=-10.0, tolerance=1e-5, max_i
         a, b, c = a_new, b_new, c_new
         history.append((a, b,c, MSE_parabola(a, b, c)))
     return a, b, c, MSE_parabola(a, b, c), history
+#linear line
+m1, c1, mse_line1 = solve_line_analytical()
+m2, c2, mse_line2, line_hist = solve_line_numerical()
+#parabola
+a_a, b_a, c_a, mse_parabola1 = solve_parabola_analytical()
+a_n, b_n, c_n, mse_parabola2, parabola_hist = solve_parabola_numerical()
+
+plt.figure()
+plt.scatter(x, y, color='black', label='Data Points')
+x_smooth = np.linspace(-0.5, 3.5, 100)
+y_line = m1*x_smooth + c1
+y_para = a_a*(x_smooth**2) + b_a*x_smooth + c_a
+plt.plot(x_smooth, y_line, 'r--', label=f'Line Fit (MSE={mse_line1:.3f})')
+plt.plot(x_smooth, y_para, 'b--', label=f'Parabola Fit (MSE={mse_parabola1:.3f})')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Line and Parabola Curve Fits')
+plt.grid(True)
+plt.legend()
+plt.savefig('fitted_curves.jpg')
+plt.close()
+
+print("Done!")
