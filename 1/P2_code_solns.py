@@ -17,6 +17,7 @@ def solve_line_analytical():
     [m1 c1] [m] = [xy]
     [m2 c2] [c] = [y]
     """
+    #to find coefficients of m & c in dmse/dm & dmse/dc
     A = np.array([
         [np.sum(x**2),  np.sum(x)], #dmse/dm
         [np.sum(x),     n]  #dmse/dc
@@ -99,10 +100,11 @@ a_n, b_n, c_n, mse_parabola2, parabola_hist = solve_parabola_numerical()
 plt.figure()
 plt.scatter(x, y, color='black', label='Data Points')
 x_smooth = np.linspace(-0.5, 3.5, 100)
-y_line = m1*x_smooth + c1
-y_para = a_a*(x_smooth**2) + b_a*x_smooth + c_a
-plt.plot(x_smooth, y_line, 'r--', label=f'Line Fit (MSE={mse_line1:.3f})')
-plt.plot(x_smooth, y_para, 'b--', label=f'Parabola Fit (MSE={mse_parabola1:.3f})')
+#after getting those constants, use the x values in x_smooth to get the corresponding y values
+y_line1 = m1*x_smooth + c1
+y_parabola1 = a_a*(x_smooth**2) + b_a*x_smooth + c_a
+plt.plot(x_smooth, y_line1, 'r--', label=f'Line Fit (MSE={mse_line1:.3f})')
+plt.plot(x_smooth, y_parabola1, 'b--', label=f'Parabola Fit (MSE={mse_parabola1:.3f})')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Line and Parabola Curve Fits')

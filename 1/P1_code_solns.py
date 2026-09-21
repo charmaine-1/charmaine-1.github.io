@@ -61,7 +61,7 @@ def plot_newton(x0, y0, history, filename):
     x_vals = np.linspace(-10, 10, 400)
     y_vals = f(x_vals)
 
-    #for the oteration table
+    #for the iteration table
     fig, (ax, ax_table) = plt.subplots(1, 2, figsize=(10, 6.5), gridspec_kw={'width_ratios': [3, 1]})
 
     ax.plot(x_vals, y_vals, label='$y = x^2 + 5$', color='blue')
@@ -78,7 +78,7 @@ def plot_newton(x0, y0, history, filename):
         if prev_x is None or abs(x_hist - prev_x) > 0.001 or n == len(history) - 1:
             ax.scatter([x_hist], [y_hist], color='orange', zorder=4)
             
-            # Alternate arrow direction to avoid cluttering adjacent points
+            # alternate the arrow direction so they dont overlap
             x_offset = 20 if n % 2 == 0 else -40
             y_offset = 20 if n % 2 == 0 else -25
             
@@ -104,7 +104,7 @@ def plot_newton(x0, y0, history, filename):
     ax.grid(True)
     ax.legend(loc='upper right')
 
-    #build side table
+    #build side table to show the intermediate pts
     ax_table.axis('off')
     table = ax_table.table(
         cellText = table_data,
