@@ -103,8 +103,8 @@ x_smooth = np.linspace(-0.5, 3.5, 100)
 #after getting those constants, use the x values in x_smooth to get the corresponding y values
 y_line1 = m1*x_smooth + c1
 y_parabola1 = a_a*(x_smooth**2) + b_a*x_smooth + c_a
-plt.plot(x_smooth, y_line1, 'r--', label=f'Line Fit (MSE={mse_line1:.3f})')
-plt.plot(x_smooth, y_parabola1, 'b--', label=f'Parabola Fit (MSE={mse_parabola1:.3f})')
+plt.plot(x_smooth, y_line1, 'r--', label=f'Line Fit (MSE={mse_line1:.4f})')
+plt.plot(x_smooth, y_parabola1, 'b--', label=f'Parabola Fit (MSE={mse_parabola1:.4f})')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Line and Parabola Curve Fits')
