@@ -250,12 +250,15 @@ dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 errors = l2_reg(dataset)
 error_unreg = errors[0]
 error_reg = errors[1:]
+min_error = error_reg[0]
 lamda = [0, 0.01, 0.1, 1, 10, 100, 1000]
 lamda_reg = lamda[1:]
-# plt.figure(figsize=(8, 8))
-# plt.semilogx(lamda_reg, error_reg, color='blue', label='Regularized Result')
-# plt.axhline(y=error_unreg, color='red', linestyle='--', label=f'Unregularized Result: {error_unreg: .5f}')
-# plt.xlabel('Regularizing Constant (log)')
-# plt.ylabel('average validation set error')
-# plt.savefig('media/Plot_1d.jpg')
-print(errors)
+plt.figure(figsize=(8, 8))
+plt.semilogx(lamda_reg, error_reg, color='blue', label=f'Regularized Result (lowest): {min_error: .5f} from lamda = 0.01')
+plt.axhline(y=error_unreg, color='red', linestyle='--', label=f'Unregularized Result: {error_unreg: .5f}')
+plt.title('Plot for 10-fold cross-validation')
+plt.xlabel('Regularizing Constant (log)')
+plt.ylabel('average validation set error')
+plt.legend()
+plt.savefig('media/Plot_1d.jpg')
+# print(errors)
