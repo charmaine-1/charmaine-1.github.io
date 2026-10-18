@@ -51,9 +51,6 @@ def poly_reg(df: pd.dataframe):
 #b
 def poly_reg_1(df: pd.dataframe):
     training = df.iloc[:100]
-    testing = df.iloc[100:]
-    training_err = []
-    testing_err = []
     #to get the values in each row and column except the last column
     train_features = training.iloc[:, :-1].values
     #add one column of 1 for the bias with same no.of rows as train dataset
@@ -72,7 +69,71 @@ def poly_reg_1(df: pd.dataframe):
         if index == 0: print(f"Bias (w0): {w:.8f}")
         else: print(f"Weight {index} (Feature {index}): {w:.8f}")
 
+#c
+# Xn(: ,2) --> 2nd column
+def poly_reg_1d(df: pd.DataFrame):
+    training = df.iloc[:100]
+    testing = df.iloc[100:]
+    train_feature = training.iloc[:, 1] #column 2
+    train_target = training.iloc[:, -1]
+    test_feature = testing.iloc[:, 1]
+    test_target = testing.iloc[:, -1]
 
+    mean_train = np.mean(train_feature)
+    sd_train = train_feature.std()
+    
+    train_norm = (train_feature - mean_train)/sd_train
+    test_norm = (test_feature - mean_train)/sd_train
+    train_input = train_norm.values
+    test_input = test_norm.values
+    trained_result = []
+    
+    for n in range(1, 8):
+        updated_train = np.ones((train_input.shape[0], 1))
+        for degree in range(1, n+1):
+            col = (train_input**degree).reshape(-1, 1)
+            updated_train = np.hstack((updated_train, col))
+        updated_train_trans = updated_train.transpose()
+        intermediate1 = np.linalg.pinv(np.dot(updated_train_trans, updated_train))
+        intermediate2 = np.dot(intermediate1, updated_train_trans)
+        weights = np.dot(intermediate2, train_target)
+
+        train_predict = np.dot(updated_train, weights)
+        trained_result.append(train_predict)
+
+        x_min = min(np.min(train_input), np.min(test_input))
+        x_max = max(np.max(train_input), np.max(test_input))
+        x_smooth = np.linspace(x_min, x_max, 200)
+
+        x_smooth_col = x_smooth.reshape(-1, 1) #why i need this line?
+        updated_smooth = np.ones((x_smooth.shape[0], 1))
+        #why do we need to recalculate this whole chunk again?
+        for degree in range(1, n+1):
+            col = (x_smooth_col**degree)
+            updated_smooth = np.hstack((updated_smooth, col))
+
+        y_smooth = np.dot(updated_smooth, weights)
+        
+        plt.figure(figsize=(8, 8))
+        plt.scatter(train_input, train_target, color='blue', label='Training Data')
+
+        test_x_col = test_input.reshape(-1, 1)
+        updated_test = np.ones((test_input.shape[0], 1))
+        for degree in range(1, n+1):
+            col = (test_x_col**degree)
+            updated_test = np.hstack((updated_test, col))
+        # test_predict = np.dot(updated_test, weights)
+
+        plt.scatter(test_input, test_target, color='orange', label='Testing Data')
+        plt.plot(x_smooth, y_smooth, color='green', linewidth=2, label=f'Degree {n} Fit')
+        plt.xlabel('Normalized Feature (ZN: proportion of residential land zoned for lots over 25,000 sq.ft.)')
+        plt.ylabel('Target (Housing Price)')
+        plt.title(f'1D Polynomial Regression - Degree {n}')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(f'media/Plot_1c_degree{n}.jpg')
+        plt.close()
+    
 
 dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 
@@ -120,4 +181,8 @@ dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 
 
 #Part 1b
-poly_reg_1(dataset)
+# poly_reg_1(dataset)
+
+
+#Part 1c
+poly_reg_1d(dataset)
