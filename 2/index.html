@@ -71,14 +71,94 @@
         <img src="./media/RMS_table_1a.png" alt="The actual values for the RMS are shown here.">
     </div>
 
-    <p>
+    <h3>
     In the original graph, the training error line seems to be flat because the testing errors are 
     significantly greater than the training errors. This large difference could suggest that the model
     is trying so hard to fit those values in the training dataset such that overfitting occurs. Hence, 
     when the same model is used to predict on the testing dataset, it produces large RMS error. This 
     shows that the model is unable to give a good prediction on other data other than those in the 
     training dataset.
-    </p>
+    </h3>
 
+    <h2>b.</h2>
+    <table border="1" class="dataframe table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Index</th>
+                <th style="text-align: center;">Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th style="text-align: center;">0 (Bias)</th>
+                <td style="text-align: center;">-37.90419967</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">1 (Feature 1)</th>
+                <td style="text-align: center;">-3.45594560</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">2 (Feature 2)</th>
+                <td style="text-align: center;">0.00538225</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">3 (Feature 3)</th>
+                <td style="text-align: center;">-0.16877947</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">4 (Feature 4)</th>
+                <td style="text-align: center;">-0.00000000</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">5 (Feature 5)</th>
+                <td style="text-align: center;">21.51539632</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">6 (Feature 6)</th>
+                <td style="text-align: center;">8.59096110</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">7 (Feature 7)</th>
+                <td style="text-align: center;">-0.07923736</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">8 (Feature 8)</th>
+                <td style="text-align: center;">0.00762667</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">9 (Feature 9)</th>
+                <td style="text-align: center;">-0.13990569</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">10 (Feature 10)</th>
+                <td style="text-align: center;">-0.00763004</td>            
+            </tr>
+            <tr>
+                <th style="text-align: center;">11 (Feature 11)</th>
+                <td style="text-align: center;">0.15455622</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">12 (Feature 12)</th>
+                <td style="text-align: center;">0.00664497</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">13 (Feature 13)</th>
+                <td style="text-align: center;">0.02622978</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>
+    Weight on 6th feature: 8.59096110
+    The weight is reasonable because if the house has more rooms, it can hold more people, which could also
+    suggest that the house has a greater space. Logically, a house with a greater space or could provide more 
+    rooms to hold more people will have higher prices.
+
+    Weight on 8th feature: 0.00762667
+    The weight seems to be slightly unreasonable because the distance to office areas should have a greater
+    impact on the housing price as closer distance would provide greater convenience to travel to office.
+    </h3>
 </body>
 </html>
+
+
+

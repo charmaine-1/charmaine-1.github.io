@@ -48,45 +48,76 @@ def poly_reg(df: pd.dataframe):
         testing_err.append(rms_test)
     return training_err, testing_err
 
+#b
+def poly_reg_1(df: pd.dataframe):
+    training = df.iloc[:100]
+    testing = df.iloc[100:]
+    training_err = []
+    testing_err = []
+    #to get the values in each row and column except the last column
+    train_features = training.iloc[:, :-1].values
+    #add one column of 1 for the bias with same no.of rows as train dataset
+    updated_train_features = np.ones((train_features.shape[0], 1))
+    #do the multipication and sum for previous terms here
+    updated_train_features = np.hstack((updated_train_features, train_features))
+    #get the transpose
+    train_features_trans = np.transpose(updated_train_features)
+    #to get the price in train dataset
+    train_targets = training.iloc[:, -1].values
+    #using the eqn: weight = inverse(phi_transpose*phi)*phi_transpose*target
+    intermediate1 = np.linalg.pinv(np.dot(train_features_trans, updated_train_features))
+    intermediate2 = np.dot(intermediate1, train_features_trans)
+    weights = np.dot(intermediate2, train_targets) #shape = no.of features*1
+    for index, w in enumerate(weights):
+        if index == 0: print(f"Bias (w0): {w:.8f}")
+        else: print(f"Weight {index} (Feature {index}): {w:.8f}")
+
+
 
 dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
-train_error, test_error = poly_reg(dataset)
-plt.figure()
-x_axis = np.linspace(1, 7, 7)
-plt.plot(x_axis, train_error, 'b--', label="Training Errors")
-plt.plot(x_axis, test_error, 'g--', label="Testing Errors")
-plt.title("Plot for Part 1a (original graph)")
-plt.xlabel("Polynomial Degree")
-plt.ylabel("RMS error")
-plt.grid(True)
-plt.legend()
-plt.savefig('media/Plot_1a_original.jpg')
 
-plt.yscale('log')
-plt.plot(x_axis, train_error, 'b--')
-plt.plot(x_axis, test_error, 'g--')
-plt.title("Plot for Part 1a (log RMS values)")
-plt.xlabel("Polynomial Degree")
-plt.ylabel("RMS error")
-plt.grid(True)
-plt.legend()
-plt.savefig('media/Plot_1a_log.jpg')
+#Part 1a
+# train_error, test_error = poly_reg(dataset)
+# plt.figure()
+# x_axis = np.linspace(1, 7, 7)
+# plt.plot(x_axis, train_error, 'b--', label="Training Errors")
+# plt.plot(x_axis, test_error, 'g--', label="Testing Errors")
+# plt.title("Plot for Part 1a (original graph)")
+# plt.xlabel("Polynomial Degree")
+# plt.ylabel("RMS error")
+# plt.grid(True)
+# plt.legend()
+# plt.savefig('media/Plot_1a_original.jpg')
 
-result = pd.DataFrame({
-    'Degree': list(range(1, 8)),
-    'Training Error (RMS)': [f"{val:.8f}" for val in train_error],
-    'Testing Error (RMS)': [f"{val:.8f}" for val in test_error]
-})
-fig, ax = plt.subplots(figsize=(6, 8))
-ax.axis('off')
-table = ax.table(
-    cellText=result.values,
-    colLabels=result.columns,
-    cellLoc='center',
-    loc='center'
-)
-table.auto_set_font_size(False)
-table.set_fontsize(10)
-table.scale(1.2, 1.3)
-plt.savefig('media/Table_1a.jpg', bbox_inches='tight', pad_inches=0.05, dpi=300)
-print("done")
+# plt.yscale('log')
+# plt.plot(x_axis, train_error, 'b--')
+# plt.plot(x_axis, test_error, 'g--')
+# plt.title("Plot for Part 1a (log RMS values)")
+# plt.xlabel("Polynomial Degree")
+# plt.ylabel("RMS error")
+# plt.grid(True)
+# plt.legend()
+# plt.savefig('media/Plot_1a_log.jpg')
+
+# result = pd.DataFrame({
+#     'Degree': list(range(1, 8)),
+#     'Training Error (RMS)': [f"{val:.8f}" for val in train_error],
+#     'Testing Error (RMS)': [f"{val:.8f}" for val in test_error]
+# })
+# fig, ax = plt.subplots(figsize=(6, 8))
+# ax.axis('off')
+# table = ax.table(
+#     cellText=result.values,
+#     colLabels=result.columns,
+#     cellLoc='center',
+#     loc='center'
+# )
+# table.auto_set_font_size(False)
+# table.set_fontsize(10)
+# table.scale(1.2, 1.3)
+# plt.savefig('media/Table_1a.jpg', bbox_inches='tight', pad_inches=0.05, dpi=300)
+# print("done")
+
+
+#Part 1b
+poly_reg_1(dataset)
