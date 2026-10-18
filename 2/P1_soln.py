@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 os.makedirs('media', exist_ok=True)
+from sklearn.model_selection import KFold
 #a
 def poly_reg(df: pd.dataframe):
     training = df.iloc[:100]
@@ -134,6 +135,67 @@ def poly_reg_1d(df: pd.DataFrame):
         plt.savefig(f'media/Plot_1c_degree{n}.jpg')
         plt.close()
     
+#d
+def l2_reg(df: pd.DataFrame):
+    lamda_list = [0, 0.01, 0.1, 1, 10, 100, 1000]
+    training = df.iloc[:100]
+    testing = df.iloc[100:]
+    train_feature = training.iloc[:, 1]
+    test_feature = testing.iloc[:, 1]
+    train_target = training.iloc[:, -1]
+    test_target = testing.iloc[:, -1]
+
+    mean_train = np.mean(train_feature)
+    sd_train = np.std(train_feature)
+    train_norm = (train_feature - mean_train)/sd_train
+    test_norm = (test_feature - mean_train)/sd_train
+    train_input = train_norm.values
+
+    np.random.seed(42) #set seed to keep my folds consistent
+    shuffle_indices = np.random.permutation(len(train_input)) #to get a new list of shuffled indexes of the data
+    shuffled_input = train_input[shuffle_indices]
+    shuffled_target = train_target.values[shuffle_indices]
+
+    input_folds = np.array_split(shuffled_input, 10)
+    target_folds = np.array_split(shuffled_target, 10)
+
+    avg_err = []
+
+    for lamda in lamda_list:
+        fold_err = []
+        for i in range(10):
+            #pick fold i for validation later
+            x_val = input_folds[i]
+            y_val = target_folds[i]
+            #combine the remaining folds together for training
+            x_train = np.concatenate([input_folds[j] for j in range(10) if j!=i])
+            y_train = np.concatenate([target_folds[j] for j in range(10) if j!=i])
+
+            new_x_train = np.ones((x_train.shape[0], 1))
+            new_x_val = np.ones((x_val.shape[0], 1))
+
+            for degree in range(1, 9):
+                col_train = (x_train**degree).reshape(-1, 1)
+                new_x_train = np.hstack((new_x_train,col_train))
+
+                col_val = (x_val**degree).reshape(-1, 1)
+                new_x_val = np.hstack((new_x_val, col_val))
+
+            n_features = new_x_train.shape[1]
+            I = np.eye(n_features)
+            I[0, 0] = 0 #dont regularize the bias
+            weights = np.linalg.inv((new_x_train.T @ new_x_train) + lamda*I) @ new_x_train.T @ y_train
+
+            y_val_pred = new_x_val @ weights
+
+            rms = np.sqrt(np.mean((y_val_pred - y_val)**2))  
+            fold_err.append(rms)
+
+        mean_err = np.mean(fold_err)
+        avg_err.append(mean_err)
+
+    return avg_err
+                      
 
 dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 
@@ -177,12 +239,23 @@ dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 # table.set_fontsize(10)
 # table.scale(1.2, 1.3)
 # plt.savefig('media/Table_1a.jpg', bbox_inches='tight', pad_inches=0.05, dpi=300)
-# print("done")
-
 
 #Part 1b
 # poly_reg_1(dataset)
 
-
 #Part 1c
-poly_reg_1d(dataset)
+# poly_reg_1d(dataset)
+
+#Part 1d
+errors = l2_reg(dataset)
+error_unreg = errors[0]
+error_reg = errors[1:]
+lamda = [0, 0.01, 0.1, 1, 10, 100, 1000]
+lamda_reg = lamda[1:]
+# plt.figure(figsize=(8, 8))
+# plt.semilogx(lamda_reg, error_reg, color='blue', label='Regularized Result')
+# plt.axhline(y=error_unreg, color='red', linestyle='--', label=f'Unregularized Result: {error_unreg: .5f}')
+# plt.xlabel('Regularizing Constant (log)')
+# plt.ylabel('average validation set error')
+# plt.savefig('media/Plot_1d.jpg')
+print(errors)
