@@ -57,6 +57,9 @@ def gaussian_reg(df:pd.DataFrame):
 
     return k_list, train_err, test_err
 
+dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
+
+
 #Part 2e
 # k_list, train_err, test_err = gaussian_reg(dataset)
 # plt.figure(figsize=(8, 8))

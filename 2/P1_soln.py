@@ -197,66 +197,66 @@ def l2_reg(df: pd.DataFrame):
 
 dataset = pd.read_csv("housing.data", sep=r"\s+", header=None)
 
-#Part 1a
-# train_error, test_error = poly_reg(dataset)
-# plt.figure()
-# x_axis = np.linspace(1, 7, 7)
-# plt.plot(x_axis, train_error, 'b--', label="Training Errors")
-# plt.plot(x_axis, test_error, 'g--', label="Testing Errors")
-# plt.title("Plot for Part 1a (original graph)")
-# plt.xlabel("Polynomial Degree")
-# plt.ylabel("RMS error")
-# plt.grid(True)
-# plt.legend()
-# plt.savefig('media/Plot_1a_original.jpg')
+# Part 1a
+train_error, test_error = poly_reg(dataset)
+plt.figure()
+x_axis = np.linspace(1, 7, 7)
+plt.plot(x_axis, train_error, 'b--', label="Training Errors")
+plt.plot(x_axis, test_error, 'g--', label="Testing Errors")
+plt.title("Plot for Part 1a (original graph)")
+plt.xlabel("Polynomial Degree")
+plt.ylabel("RMS error")
+plt.grid(True)
+plt.legend()
+plt.savefig('media/Plot_1a_original.jpg')
 
-# plt.yscale('log')
-# plt.plot(x_axis, train_error, 'b--')
-# plt.plot(x_axis, test_error, 'g--')
-# plt.title("Plot for Part 1a (log RMS values)")
-# plt.xlabel("Polynomial Degree")
-# plt.ylabel("RMS error")
-# plt.grid(True)
-# plt.legend()
-# plt.savefig('media/Plot_1a_log.jpg')
+plt.yscale('log')
+plt.plot(x_axis, train_error, 'b--')
+plt.plot(x_axis, test_error, 'g--')
+plt.title("Plot for Part 1a (log RMS values)")
+plt.xlabel("Polynomial Degree")
+plt.ylabel("RMS error")
+plt.grid(True)
+plt.legend()
+plt.savefig('media/Plot_1a_log.jpg')
 
-# result = pd.DataFrame({
-#     'Degree': list(range(1, 8)),
-#     'Training Error (RMS)': [f"{val:.8f}" for val in train_error],
-#     'Testing Error (RMS)': [f"{val:.8f}" for val in test_error]
-# })
-# fig, ax = plt.subplots(figsize=(6, 8))
-# ax.axis('off')
-# table = ax.table(
-#     cellText=result.values,
-#     colLabels=result.columns,
-#     cellLoc='center',
-#     loc='center'
-# )
-# table.auto_set_font_size(False)
-# table.set_fontsize(10)
-# table.scale(1.2, 1.3)
-# plt.savefig('media/Table_1a.jpg', bbox_inches='tight', pad_inches=0.05, dpi=300)
+result = pd.DataFrame({
+    'Degree': list(range(1, 8)),
+    'Training Error (RMS)': [f"{val:.8f}" for val in train_error],
+    'Testing Error (RMS)': [f"{val:.8f}" for val in test_error]
+})
+fig, ax = plt.subplots(figsize=(6, 8))
+ax.axis('off')
+table = ax.table(
+    cellText=result.values,
+    colLabels=result.columns,
+    cellLoc='center',
+    loc='center'
+)
+table.auto_set_font_size(False)
+table.set_fontsize(10)
+table.scale(1.2, 1.3)
+plt.savefig('media/Table_1a.jpg', bbox_inches='tight', pad_inches=0.05, dpi=300)
 
-#Part 1b
-# poly_reg_1(dataset)
+# Part 1b
+poly_reg_1(dataset)
 
-#Part 1c
-# poly_reg_1d(dataset)
+# Part 1c
+poly_reg_1d(dataset)
 
-#Part 1d
-# errors = l2_reg(dataset)
-# error_unreg = errors[0]
-# error_reg = errors[1:]
-# min_error = error_reg[0]
-# lamda = [0, 0.01, 0.1, 1, 10, 100, 1000]
-# lamda_reg = lamda[1:]
-# plt.figure(figsize=(8, 8))
-# plt.semilogx(lamda_reg, error_reg, color='blue', label=f'Regularized Result (lowest): {min_error: .5f} from lamda = 0.01')
-# plt.axhline(y=error_unreg, color='red', linestyle='--', label=f'Unregularized Result: {error_unreg: .5f}')
-# plt.title('Plot for 10-fold cross-validation')
-# plt.xlabel('Regularizing Constant (log)')
-# plt.ylabel('average validation set error')
-# plt.legend()
-# plt.savefig('media/Plot_1d.jpg')
-# print(errors)
+# Part 1d
+errors = l2_reg(dataset)
+error_unreg = errors[0]
+error_reg = errors[1:]
+min_error = error_reg[0]
+lamda = [0, 0.01, 0.1, 1, 10, 100, 1000]
+lamda_reg = lamda[1:]
+plt.figure(figsize=(8, 8))
+plt.semilogx(lamda_reg, error_reg, color='blue', label=f'Regularized Result (lowest): {min_error: .5f} from lamda = 0.01')
+plt.axhline(y=error_unreg, color='red', linestyle='--', label=f'Unregularized Result: {error_unreg: .5f}')
+plt.title('Plot for 10-fold cross-validation')
+plt.xlabel('Regularizing Constant (log)')
+plt.ylabel('average validation set error')
+plt.legend()
+plt.savefig('media/Plot_1d.jpg')
+print(errors)
