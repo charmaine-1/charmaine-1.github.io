@@ -206,7 +206,9 @@
     Gaussian centers allows the model to fit the training data points better.
     <br>
     From K = 5 to K=  75, testing error is almost flat even though K continues 
-    to increase.
+    to increase, suggesting that adding more basis functions does not help to 
+    generalize the unseen testing data. Also, the testing error remains high as 
+    compared to the training error, suggesting a possible overfitting in the model.
     </h3>
 
     <h2>f.</h2>
@@ -215,7 +217,7 @@
     </div>
     <h3>
     I will choose regularizing constant = 0.1 because it gives the lowest 
-    validation error of 3.42246.
+    validation error of 3.42246 amog all regularizing constants.
     </h3>
 </body>
 </html>

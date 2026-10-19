@@ -16,8 +16,8 @@ def gaussian_reg(df:pd.DataFrame):
     test_target = testing.iloc[:, -1].values
 
     mean_train = train_feature.mean().values
-    sd_train = train_feature.std().values.copy()
-    sd_train[sd_train == 0] = 1.0
+    sd_train = train_feature.std().values.copy() #cannot edit without .copy
+    sd_train[sd_train == 0] = 1.0 #replace any 0 with 1 to avoid /0 error
     train_norm = (train_feature.values - mean_train)/sd_train
     test_norm = (test_feature.values - mean_train)/sd_train
 
@@ -68,11 +68,11 @@ def l2_reg(df: pd.DataFrame):
 
     #normalize
     mean_train = train_feature.mean().values
-    sd_train = train_feature.std().values.copy()
+    sd_train = train_feature.std().values.copy() 
     sd_train[sd_train==0] = 1.0
     train_norm = (train_feature.values - mean_train)/sd_train
 
-    np.random.seed(42) #set seed to keep my folds consistent
+    np.random.seed(42) #so have reproducible result
     shuffle_indices = np.random.permutation(len(train_norm)) #to get a new list of shuffled indexes of the data
     shuffled_input = train_norm[shuffle_indices]
     shuffled_target = train_target[shuffle_indices]
@@ -96,8 +96,8 @@ def l2_reg(df: pd.DataFrame):
         for fold in range(10):
             val_start = fold*fold_size
             val_end = (fold + 1)*fold_size if fold < 9 else n_samples
-            val_indices = np.arange(val_start, val_end)
-            train_indices = np.setdiff1d(np.arange(n_samples), val_indices)
+            val_indices = np.arange(val_start, val_end) #get the slot that is the testing data
+            train_indices = np.setdiff1d(np.arange(n_samples), val_indices) #the rest will be the training data
 
             x_train = x[train_indices]
             y_train_fold = shuffled_target[train_indices]
