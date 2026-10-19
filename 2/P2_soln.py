@@ -152,7 +152,7 @@ plt.axhline(y=baseline_error, color='red', linestyle='--',
 plt.xlabel('Regularizing Constant lambda (log)')
 plt.ylabel('Avg Validation Set Error (RMS)')
 plt.title('10-Fold CV Validation Error with L2 Regularization')
-plt.legend()
+plt.legend(True)
 plt.grid(True)
 plt.savefig('media/Plot_2f.jpg')
 
