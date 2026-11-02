@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYDE572 Assignment 3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #0056b3;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .img-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SYDE572 Assignment 3</h1>
+
+    <h2>Part 1</h2>
+
+    <h2>Q1</h2>
+    <div class="img-container">
+        <img src="./media/SYDE572_A3_P1_Q1.jpg">
+    </div>
+
+    <h2>Q2</h2>
+    <div class="img-container">
+    <img src="./media/SYDE572_A3_P1_Q2.jpg">
+    </div>
+
+    <h2>Q3</h2>
+    <div class="img-container">
+    <img src="./media/SYDE572_A3_P1_Q3.jpg">
+    </div>
+
+    <h2>Part 2</h2>
+
+    <!-- <h2>Part 2</h2>
+    <table border="1" class="dataframe table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;">Index</th>
+                <th style="text-align: center;">Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th style="text-align: center;">0 (Bias)</th>
+                <td style="text-align: center;">-37.90419967</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">1 (Feature 1)</th>
+                <td style="text-align: center;">-3.45594560</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">2 (Feature 2)</th>
+                <td style="text-align: center;">0.00538225</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">3 (Feature 3)</th>
+                <td style="text-align: center;">-0.16877947</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">4 (Feature 4)</th>
+                <td style="text-align: center;">-0.00000000</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">5 (Feature 5)</th>
+                <td style="text-align: center;">21.51539632</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">6 (Feature 6)</th>
+                <td style="text-align: center;">8.59096110</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">7 (Feature 7)</th>
+                <td style="text-align: center;">-0.07923736</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">8 (Feature 8)</th>
+                <td style="text-align: center;">0.00762667</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">9 (Feature 9)</th>
+                <td style="text-align: center;">-0.13990569</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">10 (Feature 10)</th>
+                <td style="text-align: center;">-0.00763004</td>            
+            </tr>
+            <tr>
+                <th style="text-align: center;">11 (Feature 11)</th>
+                <td style="text-align: center;">0.15455622</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">12 (Feature 12)</th>
+                <td style="text-align: center;">0.00664497</td>
+            </tr>
+            <tr>
+                <th style="text-align: center;">13 (Feature 13)</th>
+                <td style="text-align: center;">0.02622978</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>
+    Weight on 6th feature: 8.59096110
+    <br>
+    The weight is reasonable because if the house has more rooms, it can hold more people, which could also
+    suggest that the house has a greater space. Logically, a house with a greater space or could provide more 
+    rooms to hold more people will have higher prices.
+    <br>
+    <br>
+    Weight on 8th feature: 0.00762667
+    <br>
+    The weight seems to be slightly unreasonable because the distance to office areas should have a greater
+    impact on the housing price as closer distance would provide greater convenience to travel to office.
+    </h3>
+
+    <h2>c.</h2>
+    <div class="img-container">
+        <img src="./media/Plot_1c_degree1.jpg">
+    </div>
+    <h3>
+    Degree 1 plot is interesting because the model is just a linear line that 
+    is neither close to the training or testing data distribution. Hence, 
+    this might be an underfitting model.
+    </h3>
+    <div class="img-container">
+        <img src="./media/Plot_1c_degree3.jpg">
+    </div>
+    <h3>
+    Degree 3 plot is interesting because the model seems to be balanced in a 
+    way that it cuts through some of the training as well as the testing data 
+    points.
+    </h3>
+    <div class="img-container">
+        <img src="./media/Plot_1c_degree7.jpg">
+    </div>
+    <h3>
+    Degree 7 plot is interesting because the model has more oscillations and cuts 
+    through more training data points but became far away from the testing data 
+    distribution. Hence, this model looks overfitted.
+    </h3>
+
+    <h2>d.</h2>
+    <div class="img-container">
+        <img src="./media/Plot_1d.jpg">
+    </div>    
+    <h3>
+    I will choose regularizing constant = 0.01 because it will give the lowest 
+    average validation set error of 6.3525 among all regularizing constants.
+    </h3>
+
+    <h2>Part 2</h2>
+    <h2>e.</h2>
+    <div class="img-container">
+        <img src="./media/Plot_2e.jpg">
+    </div>
+    <h3>
+    Training error continuously decreases as K increases because adding more 
+    Gaussian centers allows the model to fit the training data points better.
+    <br>
+    From K = 5 to K=  75, testing error is almost flat even though K continues 
+    to increase, suggesting that adding more basis functions does not help to 
+    generalize the unseen testing data. Also, the testing error remains high as 
+    compared to the training error, suggesting a possible overfitting in the model.
+    </h3>
+
+    <h2>f.</h2>
+    <div class="img-container">
+        <img src="./media/Plot_2f.jpg">
+    </div>
+    <h3>
+    I will choose regularizing constant = 0.1 because it gives the lowest 
+    validation error of 3.42246 amog all regularizing constants.
+    </h3> -->
+</body>
+</html>
+
+
+
