@@ -215,6 +215,41 @@
     <br>
     2. Number of PCs required to explain >= 50% variance: 1 component(s)
     </h3>
+
+    <h2>Part 5: Non-linear Components</h2>
+    <h3>The following is the plot for ISOMAP</h3>
+    <div class="img-container">
+    <img src="./media/SYDE572_A3_P5.png">
+    </div>   
+    <br>
+    
+    <h3>
+    When comparing the 2D projections visually, the PCA plot (using axes PC1 and PC2) and 
+    the ISOMAP plot (k=3) yield similar cluster structures, where both effectively separates 
+    the distinct plant species. 
+    <br>
+    <p>2D plot for PCA</p>
+    <div class="img-container">
+    <img src="./media/SYDE572_A3_P3_2D.png">
+    </div>
+    <p>2D plot for ISOMAP</p>
+    <div class="img-container">
+    <img src="./media/SYDE572_A3_P5.png">
+    </div>
+    However, PCA is still preferable overall for this dataset for two key reasons:Data 
+    Compression & Information Retention. 
+    <br>
+    1. PCA captures 97.76% of the total global variance in just two dimensions, offering a 
+    significant information preservation.
+    <br>
+    2. There is cumulative distortion in ISOMAP of 1017.1068. While ISOMAP attempts to preserve 
+    local geodesic distances, it accumulates considerable distortion across graph hops 
+    (reflected in its high raw MDS stress). 
+    <br>
+    As the additional non-linear unrolling does not yield a significantly superior visual 
+    separation over linear PCA, PCA remains the more efficient, interpretable and hence, 
+    preferred choice for this dataset.
+    </h3>
 </body>
 </html>
 
