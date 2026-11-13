@@ -67,8 +67,8 @@
     <br>
 
     <h3>
-    Using the first 3 samples to test the classify_nb, classify_nb was able to get all 
-    3 predictions correct.
+    Using the first 3 samples from eval_docs to test the classify_nb, classify_nb was able 
+    to get all 3 predictions correct.
     </h3>
 
     <div class="img-container">
@@ -77,6 +77,44 @@
 
     <br>
 
-    
+    <h2>Evaluating the classifier</h3>
+
+    <h3>
+    Accuracy when evaluating the classifier on the test set: 81.5%
+    </h3>
+
+    <br>
+
+    <h2>Error analysis</h2>
+
+    <h3>
+    From the wrongly classified documents, I took the first three as samples. These are the 
+    first three documents:
+    <br>
+    i agree with other reviewers that it feels good and doesn't smell too much, however, 
+    i've experimented with it several times to confirm my findings, and it turns out to 
+    give me really bad blackheads. i'm 25 with an oily t-zone and very dry facial skin. 
+    on mornings after using this cream, i have nasty blackheads on my forehead and chin. 
+    there are better products out there.
+    <br>
+    this camera has a very poor lens. at 1x zoom, the barrel / spherical distortion is 
+    enormous; try taking a picture of a tiled wall. image quality is also so-so when a 
+    picture is viewed at 100%; scaled down on a computer monitor, the quality is ok. 
+    color fidelity is next to nothing when using flash and auto white balance. [...]
+    <br>
+    this book offers more information about santa claus than it does the gods / godesses 
+    associated with the winter soltice. the craft projects are cheesey and the recipes 
+    terrible. save your money and do a little research yourself and if you want recipes or 
+    craft projects pick up one of those special christmas magazines for ideas you can adapt 
+    for a pagan holiday theme .
+    <br>
+    All the above 3 reviews are wrongly classified as positive review. From the 3 reviews 
+    above, we can discover that in each review, it has frequent mention on the good and 
+    positive words like 'good', 'better', 'more' , 'save' and 'special' etc but missed the 
+    'not' in front and the sarcasm in the reviews. Since the assumption in this Naive Bayes 
+    theorem is that all words are independent, which is obviously not the case in this 
+    scenario. Hence, using the Naive Bayes would easily misclassify these kind of reviews 
+    that do not express the attitude with straight and direct words.
+    </h3>
 </body>
 </html>

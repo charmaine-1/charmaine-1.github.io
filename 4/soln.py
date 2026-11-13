@@ -69,6 +69,41 @@ def classify_nb(doc, parameters):
 
     return guess
 
+def classify_documents(docs, parameters):
+    guess_result = []
+    for doc in docs:
+        prob_pos = score_doc_label(doc, 'pos', parameters)
+        prob_neg = score_doc_label(doc, 'neg', parameters)
+        
+        if prob_pos > prob_neg: guess = 'pos'
+        else: guess = 'neg'
+
+        guess_result.append(guess)
+
+    return guess_result
+
+def accuracy(true_labels, guessed_labels):
+    num_correct_guess = 0
+    num_total_docs = len(true_labels)
+
+    for i in range(num_total_docs):
+        if true_labels[i] == guessed_labels[i]: num_correct_guess += 1
+
+    correct_ratio = num_correct_guess/num_total_docs
+    return correct_ratio
+
+def error_analysis(docs, true_labels, guessed_labels, parameters):
+    wrongly_classified = []
+    count = 0
+    index_wrong_docs = []
+    for i in range(len(docs)):
+        if count == 3: break
+        if true_labels[i] != guessed_labels[i]:
+            wrongly_classified.append(docs[i])
+            count += 1
+            index_wrong_docs.append(i)
+    return wrongly_classified, index_wrong_docs
+
 
 all_docs, all_labels = read_documents('all_sentiment_shuffled.txt')
 split_point = int(0.80*len(all_docs))
@@ -105,12 +140,29 @@ train_param = train_nb(train_docs, train_labels)
 # print(f"P(pos): {np.exp(pos_score__unseen)}")
 # print(f"P(neg): {np.exp(neg_score_unseen)}")
 
-#test classify_nb using first 3 samples from eval_docs
-for i in range(3):
-    test_doc = eval_docs[i]
-    true_label = eval_labels[i]
-    predicted_label = classify_nb(test_doc, train_param)
-    print(f"Sample {i+1}")
-    print(f"True Label: {true_label}")
-    print(f"Predicted Label: {predicted_label}")
-    print()
+# #test classify_nb using first 3 samples from eval_docs
+# for i in range(3):
+#     test_doc = eval_docs[i]
+#     true_label = eval_labels[i]
+#     predicted_label = classify_nb(test_doc, train_param)
+#     print(f"Sample {i+1}")
+#     print(f"True Label: {true_label}")
+#     print(f"Predicted Label: {predicted_label}")
+#     print()
+
+predict_labels_eval_docs = classify_documents(eval_docs, train_param)
+
+prediction_accuracy = accuracy(eval_labels, predict_labels_eval_docs)
+# print(f"Accuracy when evaluating the classifier on the test set: {(prediction_accuracy*100):.1f}%")
+
+#Error analysis   
+wrong_result, index_wrong_result = error_analysis(eval_docs, eval_labels, predict_labels_eval_docs, train_param)
+print("These are the first 3 documents that were wrongly classified:\n")
+for doc, index in zip(wrong_result, index_wrong_result):
+    sentence = " ".join(doc)
+    true_label = eval_labels[index]
+    guessed_label = predict_labels_eval_docs[index]
+    
+    print(f"Review Text: {sentence}")
+    print(f"-> True Label: {true_label}  |  Model's Guess: {guessed_label}")
+    print("-" * 60)
